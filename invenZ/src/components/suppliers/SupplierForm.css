@@ -1,0 +1,105 @@
+.supplier-form {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.supplier-form h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+}
+
+.supplier-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.supplier-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.supplier-form .form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.supplier-form .form-group input,
+.supplier-form .form-group select,
+.supplier-form .form-group textarea {
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.supplier-form .form-group input:focus,
+.supplier-form .form-group select:focus,
+.supplier-form .form-group textarea:focus {
+  border-color: #1B5E20;
+}
+
+.supplier-form .form-group input.error,
+.supplier-form .form-group select.error {
+  border-color: #F44336;
+}
+
+.supplier-form .error-text {
+  color: #F44336;
+  font-size: 0.75rem;
+}
+
+.supplier-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.supplier-form .btn-cancel {
+  padding: 8px 24px;
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.supplier-form .btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.supplier-form .btn-submit {
+  padding: 8px 32px;
+  background: #1B5E20;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.supplier-form .btn-submit:hover {
+  background: #0D3B12;
+}
+
+@media (max-width: 768px) {
+  .supplier-form {
+    padding: 16px;
+  }
+  
+  .supplier-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
