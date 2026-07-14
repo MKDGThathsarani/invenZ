@@ -1,0 +1,391 @@
+/* ============================================
+   PURCHASE ORDER FORM
+   ============================================ */
+.purchase-order-form {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.purchase-order-form h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
+  color: #1a1a1a;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+/* ============================================
+   FORM GRID
+   ============================================ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  background: white;
+  color: #1a1a1a;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #1B5E20;
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+}
+
+.form-group input.error,
+.form-group select.error {
+  border-color: #F44336;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.error-text {
+  color: #F44336;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+/* ============================================
+   ITEMS SECTION
+   ============================================ */
+.items-section {
+  border: 2px solid #e8f0e8;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fafcfa;
+}
+
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.items-header h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.btn-add-item {
+  padding: 6px 18px;
+  background: #1B5E20;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-add-item:hover {
+  background: #0D3B12;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(27, 94, 32, 0.3);
+}
+
+/* ============================================
+   ITEM ROW
+   ============================================ */
+.item-row {
+  border-bottom: 1px solid #e8f0e8;
+  padding: 12px 0;
+}
+
+.item-row:last-child {
+  border-bottom: none;
+}
+
+.item-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.item-fields .form-group {
+  margin-bottom: 0;
+}
+
+.item-fields .form-group label {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.item-total {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 4px;
+}
+
+.item-total label {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.item-total span {
+  font-weight: 600;
+  color: #1B5E20;
+  padding: 6px 0;
+  font-size: 0.95rem;
+}
+
+.btn-remove-item {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 6px;
+  background: #FFEBEE;
+  color: #C62828;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-bottom: 4px;
+}
+
+.btn-remove-item:hover:not(:disabled) {
+  background: #FFCDD2;
+  transform: scale(1.05);
+}
+
+.btn-remove-item:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   ORDER TOTAL
+   ============================================ */
+.order-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px 0 16px;
+  border-top: 2px solid #e8f0e8;
+  margin-top: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.order-total .total-amount {
+  color: #1B5E20;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* ============================================
+   FORM ACTIONS
+   ============================================ */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-cancel {
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.btn-cancel:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.btn-submit {
+  padding: 10px 32px;
+  background: #1B5E20;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: #0D3B12;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .purchase-order-form {
+    padding: 16px;
+    margin: 0 8px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .item-fields {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .item-total {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+  }
+
+  .item-total span {
+    font-size: 1rem;
+  }
+
+  .btn-remove-item {
+    align-self: flex-end;
+    width: 30px;
+    height: 30px;
+  }
+
+  .order-total {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    font-size: 1rem;
+  }
+
+  .order-total .total-amount {
+    font-size: 1.2rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .items-section {
+    padding: 12px;
+  }
+
+  .items-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .btn-add-item {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .purchase-order-form h3 {
+    font-size: 1.1rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .item-fields .form-group label {
+    font-size: 0.7rem;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.item-row {
+  animation: fadeIn 0.3s ease;
+}
+
+/* ============================================
+   SCROLLBAR (for items section)
+   ============================================ */
+.items-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.items-section::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.items-section::-webkit-scrollbar-thumb {
+  background: #4CAF50;
+  border-radius: 3px;
+}
+
+.items-section::-webkit-scrollbar-thumb:hover {
+  background: #1B5E20;
+}

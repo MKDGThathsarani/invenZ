@@ -1,0 +1,196 @@
+.sales-order-list {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Reuse same styles as PurchaseOrderList.css */
+.sales-order-list .list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sales-order-list .list-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.sales-order-list .btn-add {
+  padding: 8px 20px;
+  background: #1B5E20;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.sales-order-list .btn-add:hover {
+  background: #0D3B12;
+}
+
+.sales-order-list .list-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sales-order-list .search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.sales-order-list .search-box input {
+  width: 100%;
+  padding: 8px 16px 8px 40px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sales-order-list .search-box input:focus {
+  border-color: #1B5E20;
+}
+
+.sales-order-list .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.sales-order-list .filter-select {
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: white;
+  min-width: 150px;
+}
+
+.sales-order-list .filter-select:focus {
+  border-color: #1B5E20;
+}
+
+.sales-order-list .orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.sales-order-list .orders-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f8faf8;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #666;
+  border-bottom: 2px solid #e8f0e8;
+}
+
+.sales-order-list .orders-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sales-order-list .orders-table tr:hover {
+  background: #f8faf8;
+}
+
+.sales-order-list .order-number {
+  font-weight: 600;
+  color: #1B5E20;
+}
+
+.sales-order-list .total-amount {
+  font-weight: 600;
+}
+
+.sales-order-list .status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.sales-order-list .status-badge.warning { background: #FFF3E0; color: #E65100; }
+.sales-order-list .status-badge.info { background: #E3F2FD; color: #0D47A1; }
+.sales-order-list .status-badge.primary { background: #E8F5E9; color: #1B5E20; }
+.sales-order-list .status-badge.success { background: #E8F5E9; color: #2E7D32; }
+.sales-order-list .status-badge.danger { background: #FFEBEE; color: #C62828; }
+.sales-order-list .status-badge.default { background: #f0f0f0; color: #666; }
+
+.sales-order-list .action-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.sales-order-list .action-buttons button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.sales-order-list .btn-view {
+  background: #E3F2FD;
+  color: #0D47A1;
+}
+.sales-order-list .btn-view:hover { background: #BBDEFB; }
+
+.sales-order-list .btn-edit {
+  background: #FFF3E0;
+  color: #E65100;
+}
+.sales-order-list .btn-edit:hover { background: #FFE0B2; }
+
+.sales-order-list .btn-delete {
+  background: #FFEBEE;
+  color: #C62828;
+}
+.sales-order-list .btn-delete:hover { background: #FFCDD2; }
+
+.sales-order-list .empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .sales-order-list {
+    padding: 16px;
+  }
+  
+  .sales-order-list .list-filters {
+    flex-direction: column;
+  }
+  
+  .sales-order-list .search-box {
+    min-width: auto;
+  }
+  
+  .sales-order-list .orders-table {
+    font-size: 0.8rem;
+  }
+  
+  .sales-order-list .orders-table th,
+  .sales-order-list .orders-table td {
+    padding: 8px 10px;
+  }
+}
