@@ -1,0 +1,88 @@
+.stock-overview {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: #f8faf8;
+  padding: 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-left: 4px solid #1B5E20;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card.warning { border-left-color: #FF9800; }
+.stat-card.danger { border-left-color: #F44336; }
+.stat-card.success { border-left-color: #43A047; }
+
+.stat-icon {
+  font-size: 2rem;
+  width: 48px;
+  text-align: center;
+}
+
+.stat-info { flex: 1; }
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recent-movements h4 {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.movements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.movement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f8faf8;
+  font-size: 0.9rem;
+}
+
+.movement-item.in {
+  border-left: 3px solid #43A047;
+}
+.movement-item.out {
+  border-left: 3px solid #F44336;
+}
+
+.movement-icon { font-size: 1.1rem; }
+.movement-product { flex: 1; font-weight: 500; }
+.movement-quantity { font-weight: 600; }
+.movement-item.in .movement-quantity { color: #43A047; }
+.movement-item.out .movement-quantity { color: #F44336; }
+.movement-time { font-size: 0.8rem; color: #999; }
