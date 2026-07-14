@@ -1,0 +1,141 @@
+.stock-movements {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.movements-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.movements-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.movements-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.movements-filters .search-input {
+  padding: 6px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+  min-width: 150px;
+}
+
+.movements-filters .search-input:focus {
+  border-color: #1B5E20;
+}
+
+.movements-filters .filter-select {
+  padding: 6px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+  background: white;
+}
+
+.movements-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.movements-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #f8faf8;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #666;
+  border-bottom: 2px solid #e8f0e8;
+}
+
+.movements-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.movements-table tr:hover {
+  background: #f8faf8;
+}
+
+.product-name {
+  font-weight: 500;
+}
+
+.type-badge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.type-badge.type-in {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+.type-badge.type-out {
+  background: #FFEBEE;
+  color: #C62828;
+}
+.type-badge.type-adj {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.quantity.positive {
+  color: #43A047;
+  font-weight: 600;
+}
+.quantity.negative {
+  color: #F44336;
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .stock-movements {
+    padding: 16px;
+  }
+  
+  .movements-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .movements-filters {
+    flex-direction: column;
+  }
+  
+  .movements-filters .search-input {
+    min-width: auto;
+  }
+  
+  .movements-table {
+    font-size: 0.8rem;
+  }
+  
+  .movements-table th,
+  .movements-table td {
+    padding: 6px 8px;
+  }
+}
