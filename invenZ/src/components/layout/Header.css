@@ -1,0 +1,109 @@
+.header {
+  background: #1B5E20;
+  padding: 12px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.brand-icon { font-size: 1.8rem; }
+.brand-name { font-size: 1.6rem; font-weight: 800; color: white; }
+.brand-name span { color: #FF9800; }
+.brand-tagline { font-size: 0.7rem; color: rgba(255, 255, 255, 0.7); font-weight: 300; }
+
+.header-search {
+  display: flex;
+  flex: 1;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.search-btn {
+  padding: 10px 16px;
+  background: #FF9800;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+.search-btn:hover { background: #E65100; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notification-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+.notification-btn:hover { background: rgba(255, 255, 255, 0.1); }
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #F44336;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 18px;
+  text-align: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-name { color: white; font-weight: 500; }
+
+@media (max-width: 768px) {
+  .header-search { display: none; }
+  .brand-tagline { display: none; }
+  .user-name { display: none; }
+}

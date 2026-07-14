@@ -1,0 +1,15 @@
+.layout { min-height: 100vh; background: #f5f5f5; }
+.layout-body { display: flex; }
+
+.layout-content {
+  flex: 1;
+  padding: 24px;
+  max-width: calc(100% - 260px);
+}
+
+@media (max-width: 768px) {
+  .layout-content {
+    max-width: calc(100% - 70px);
+    padding: 16px;
+  }
+}
