@@ -1,0 +1,50 @@
+.orders-page .page-header {
+  margin-bottom: 24px;
+}
+
+.orders-page .page-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.orders-page .page-header p {
+  color: #666;
+}
+
+.orders-page .tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid #e8f0e8;
+  margin-bottom: 20px;
+}
+
+.orders-page .tab {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.orders-page .tab:hover {
+  color: #1a1a1a;
+}
+
+.orders-page .tab.active {
+  color: #1B5E20;
+  border-bottom-color: #1B5E20;
+}
+
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #999;
+}

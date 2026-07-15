@@ -1,21 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useProduct } from '../context/ProductContext';
+import { useSupplier } from '../context/SupplierContext';
+import { useStock } from '../context/StockContext';
+import { useOrder } from '../context/OrderContext';
 import StatCard from '../components/dashboard/StatCard';
 import Card from '../components/common/Card';
 import './Dashboard.css';
 
 const Dashboard = () => {
+  const { products, totalCount, loadProducts } = useProduct();
+  const { suppliers, loadSuppliers } = useSupplier();
+  const { stockOverview, loadStockOverview, lowStockItems } = useStock();
+  const { orderStats, loadOrderStats } = useOrder();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      await Promise.all([
+        loadProducts(),
+        loadSuppliers(),
+        loadStockOverview(),
+        loadOrderStats()
+      ]);
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
   const stats = [
-    { icon: '📦', value: '1,245', label: 'Total Products', change: '+12%', color: 'primary' },
-    { icon: '⚠️', value: '8', label: 'Low Stock', change: '+5%', color: 'warning' },
-    { icon: '🏢', value: '24', label: 'Suppliers', change: '+2', color: 'success' },
-    { icon: '💰', value: 'Rs.45,000', label: 'Total Value', change: '+8%', color: 'info' },
+    { 
+      icon: '📦', 
+      value: totalCount || 0, 
+      label: 'Total Products', 
+      change: '+12%', 
+      color: 'primary' 
+    },
+    { 
+      icon: '⚠️', 
+      value: lowStockItems?.length || 0, 
+      label: 'Low Stock', 
+      change: '+5%', 
+      color: 'warning' 
+    },
+    { 
+      icon: '🏢', 
+      value: suppliers?.length || 0, 
+      label: 'Suppliers', 
+      change: '+2', 
+      color: 'success' 
+    },
+    { 
+      icon: '💰', 
+      value: `Rs. ${stockOverview?.totalValue?.toLocaleString() || '0'}`, 
+      label: 'Total Value', 
+      change: '+8%', 
+      color: 'info' 
+    }
   ];
 
-  const lowStockItems = [
-    { name: 'Rice', quantity: 2, status: 'danger' },
-    { name: 'Sugar', quantity: 8, status: 'warning' },
-    { name: 'Wheat Flour', quantity: 45, status: 'success' },
-  ];
+  const lowStockItemsList = lowStockItems?.slice(0, 3) || [];
+
+  if (loading) {
+    return <div className="loader-container">Loading...</div>;
+  }
 
   return (
     <div className="dashboard">
@@ -39,21 +87,17 @@ const Dashboard = () => {
 
         <Card title="⚠️ Low Stock Alerts" icon="⚠️" borderColor="warning">
           <div className="low-stock-list">
-            {lowStockItems.map((item, index) => (
-              <div key={index} className={`stock-item ${item.status}`}>
-                <span className="stock-name">{item.name}</span>
-                <span className="stock-quantity">{item.quantity} left</span>
-                {item.status === 'danger' && (
+            {lowStockItemsList.length === 0 ? (
+              <div className="no-alerts">✅ All items are well-stocked</div>
+            ) : (
+              lowStockItemsList.map((item, index) => (
+                <div key={index} className={`stock-item ${item.status || 'danger'}`}>
+                  <span className="stock-name">{item.name}</span>
+                  <span className="stock-quantity">{item.currentStock} left</span>
                   <button className="stock-action">Order</button>
-                )}
-                {item.status === 'success' && (
-                  <span className="stock-status">✅ In Stock</span>
-                )}
-                {item.status === 'warning' && (
-                  <span className="stock-status">⚠️ Low</span>
-                )}
-              </div>
-            ))}
+                </div>
+              ))
+            )}
           </div>
         </Card>
       </div>

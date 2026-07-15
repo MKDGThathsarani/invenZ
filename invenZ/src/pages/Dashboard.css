@@ -28,7 +28,6 @@
 }
 
 .low-stock-list { display: flex; flex-direction: column; gap: 12px; }
-
 .stock-item {
   display: flex;
   align-items: center;
@@ -37,14 +36,11 @@
   border-radius: 8px;
   background: #f8faf8;
 }
-
 .stock-item.danger { border-left: 4px solid #F44336; background: #fff5f5; }
 .stock-item.warning { border-left: 4px solid #FF9800; background: #fff8f0; }
 .stock-item.success { border-left: 4px solid #43A047; background: #f0faf0; }
-
 .stock-name { font-weight: 500; }
 .stock-quantity { font-weight: 600; }
-
 .stock-action {
   padding: 4px 12px;
   background: #1B5E20;
@@ -55,7 +51,12 @@
   font-size: 0.8rem;
 }
 
-.stock-status { font-size: 0.85rem; }
+.no-alerts {
+  padding: 20px;
+  text-align: center;
+  color: #43A047;
+  font-weight: 500;
+}
 
 @media (max-width: 768px) {
   .dashboard-grid { grid-template-columns: 1fr; }
