@@ -1,3 +1,4 @@
+/* src/components/products/ProductDetails.css */
 .product-details-overlay {
   position: fixed;
   top: 0;
@@ -155,27 +156,45 @@
   font-weight: 600;
 }
 
-.stock-info span.stock-value.low {
-  color: #F44336;
-}
+.stock-info .stock-value.in-stock { color: #43A047; }
+.stock-info .stock-value.low-stock { color: #FF9800; }
+.stock-info .stock-value.critical { color: #F44336; }
+.stock-info .stock-value.out-of-stock { color: #F44336; }
 
 .stock-bar {
   height: 8px;
   background: #f0f0f0;
   border-radius: 4px;
   overflow: hidden;
+  margin-bottom: 8px;
 }
 
 .stock-fill {
   height: 100%;
-  background: #43A047;
   border-radius: 4px;
   transition: width 0.5s ease;
 }
 
-.stock-fill.low {
-  background: #F44336;
+.stock-fill.in-stock { background: #43A047; }
+.stock-fill.low-stock { background: #FF9800; }
+.stock-fill.critical { background: #F44336; }
+.stock-fill.out-of-stock { background: #F44336; }
+
+.stock-status-label {
+  text-align: center;
 }
+
+.status-badge {
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-badge.in-stock { background: #E8F5E9; color: #2E7D32; }
+.status-badge.low-stock { background: #FFF3E0; color: #E65100; }
+.status-badge.critical { background: #FFEBEE; color: #C62828; }
+.status-badge.out-of-stock { background: #FFEBEE; color: #C62828; }
 
 .details-footer {
   padding: 16px 24px;
@@ -193,11 +212,12 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 .btn-edit:hover {
   background: #0D3B12;
+  transform: translateY(-2px);
 }
 
 .btn-close {
@@ -207,6 +227,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .btn-close:hover {

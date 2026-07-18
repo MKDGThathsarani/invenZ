@@ -1,23 +1,22 @@
+// src/components/products/ProductCard.jsx
 import React from 'react';
 import './ProductCard.css';
 
 const ProductCard = ({ product, onEdit, onDelete, onView }) => {
   const getStockStatus = (current, min) => {
+    const ratio = current / min;
     if (current <= 0) return { label: 'Out of Stock', className: 'out-of-stock' };
-    if (current <= min) return { label: 'Low Stock', className: 'low-stock' };
+    if (ratio <= 0.5) return { label: 'Critical', className: 'critical' };
+    if (ratio <= 1) return { label: 'Low Stock', className: 'low-stock' };
     return { label: 'In Stock', className: 'in-stock' };
   };
 
   const stockStatus = getStockStatus(product.currentStock, product.minStock);
 
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={() => onView?.(product)}>
       <div className="product-image">
-        {product.image ? (
-          <img src={product.image} alt={product.name} />
-        ) : (
-          <div className="product-placeholder">📦</div>
-        )}
+        <div className="product-placeholder">📦</div>
         <span className={`stock-badge ${stockStatus.className}`}>
           {stockStatus.label}
         </span>
@@ -48,10 +47,10 @@ const ProductCard = ({ product, onEdit, onDelete, onView }) => {
         </div>
       </div>
 
-      <div className="product-actions">
-        <button className="btn-view" onClick={() => onView?.(product)}>👁️</button>
-        <button className="btn-edit" onClick={() => onEdit?.(product)}>✏️</button>
-        <button className="btn-delete" onClick={() => onDelete?.(product)}>🗑️</button>
+      <div className="product-actions" onClick={(e) => e.stopPropagation()}>
+        <button className="btn-view" onClick={() => onView?.(product)} title="View Details">👁️</button>
+        <button className="btn-edit" onClick={() => onEdit?.(product)} title="Edit">✏️</button>
+        <button className="btn-delete" onClick={() => onDelete?.(product)} title="Delete">🗑️</button>
       </div>
     </div>
   );

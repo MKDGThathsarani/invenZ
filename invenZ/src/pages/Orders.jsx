@@ -22,11 +22,16 @@ const Orders = () => {
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      await Promise.all([
-        loadPurchaseOrders(),
-        loadSalesOrders()
-      ]);
-      setLoading(false);
+      try {
+        await Promise.all([
+          loadPurchaseOrders(),
+          loadSalesOrders()
+        ]);
+      } catch (err) {
+        error('Failed to load orders');
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

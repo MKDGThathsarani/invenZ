@@ -1,3 +1,4 @@
+// src/components/products/ProductFilters.jsx
 import React from 'react';
 import './ProductFilters.css';
 
@@ -30,7 +31,9 @@ const ProductFilters = ({
         >
           <option value="all">All Categories</option>
           {categories.map(category => (
-            <option key={category.id} value={category.id}>{category.name}</option>
+            <option key={category.id || category} value={category.id || category}>
+              {category.name || category}
+            </option>
           ))}
         </select>
 

@@ -1,18 +1,19 @@
+// src/components/products/ProductForm.jsx
 import React, { useState } from 'react';
 import './ProductForm.css';
 
-const ProductForm = ({
-  initialData = null,
-  onSubmit,
+const ProductForm = ({ 
+  initialData = null, 
+  onSubmit, 
   onCancel,
   categories = [],
-  suppliers = []
+  loading = false
 }) => {
   const [formData, setFormData] = useState({
     name: initialData?.name || '',
     sku: initialData?.sku || '',
-    categoryId: initialData?.categoryId || '',
-    supplierId: initialData?.supplierId || '',
+    category: initialData?.category || '',
+    supplier: initialData?.supplier || '',
     description: initialData?.description || '',
     purchasePrice: initialData?.purchasePrice || '',
     sellingPrice: initialData?.sellingPrice || '',
@@ -33,10 +34,9 @@ const ProductForm = ({
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Product name is required';
     if (!formData.sku.trim()) newErrors.sku = 'SKU is required';
-    if (!formData.categoryId) newErrors.categoryId = 'Category is required';
-    if (!formData.supplierId) newErrors.supplierId = 'Supplier is required';
-    if (formData.purchasePrice < 0) newErrors.purchasePrice = 'Price cannot be negative';
-    if (formData.sellingPrice < 0) newErrors.sellingPrice = 'Price cannot be negative';
+    if (!formData.category) newErrors.category = 'Category is required';
+    if (formData.purchasePrice && formData.purchasePrice < 0) newErrors.purchasePrice = 'Price cannot be negative';
+    if (formData.sellingPrice && formData.sellingPrice < 0) newErrors.sellingPrice = 'Price cannot be negative';
     if (formData.minStock < 0) newErrors.minStock = 'Min stock cannot be negative';
     if (formData.maxStock < formData.minStock) newErrors.maxStock = 'Max stock must be greater than min stock';
     
@@ -60,8 +60,6 @@ const ProductForm = ({
 
   return (
     <form className="product-form" onSubmit={handleSubmit}>
-      <h3>{initialData ? 'Edit Product' : 'Add New Product'}</h3>
-
       <div className="form-grid">
         <div className="form-group">
           <label>Product Name *</label>
@@ -71,6 +69,7 @@ const ProductForm = ({
             onChange={handleChange}
             className={errors.name ? 'error' : ''}
             placeholder="Enter product name"
+            disabled={loading}
           />
           {errors.name && <span className="error-text">{errors.name}</span>}
         </div>
@@ -83,6 +82,7 @@ const ProductForm = ({
             onChange={handleChange}
             className={errors.sku ? 'error' : ''}
             placeholder="Enter SKU"
+            disabled={loading}
           />
           {errors.sku && <span className="error-text">{errors.sku}</span>}
         </div>
@@ -90,33 +90,31 @@ const ProductForm = ({
         <div className="form-group">
           <label>Category *</label>
           <select
-            name="categoryId"
-            value={formData.categoryId}
+            name="category"
+            value={formData.category}
             onChange={handleChange}
-            className={errors.categoryId ? 'error' : ''}
+            className={errors.category ? 'error' : ''}
+            disabled={loading}
           >
             <option value="">Select Category</option>
             {categories.map(cat => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
+              <option key={cat.id || cat} value={cat.name || cat}>
+                {cat.name || cat}
+              </option>
             ))}
           </select>
-          {errors.categoryId && <span className="error-text">{errors.categoryId}</span>}
+          {errors.category && <span className="error-text">{errors.category}</span>}
         </div>
 
         <div className="form-group">
-          <label>Supplier *</label>
-          <select
-            name="supplierId"
-            value={formData.supplierId}
+          <label>Supplier</label>
+          <input
+            name="supplier"
+            value={formData.supplier}
             onChange={handleChange}
-            className={errors.supplierId ? 'error' : ''}
-          >
-            <option value="">Select Supplier</option>
-            {suppliers.map(sup => (
-              <option key={sup.id} value={sup.id}>{sup.name}</option>
-            ))}
-          </select>
-          {errors.supplierId && <span className="error-text">{errors.supplierId}</span>}
+            placeholder="Enter supplier name"
+            disabled={loading}
+          />
         </div>
       </div>
 
@@ -128,6 +126,7 @@ const ProductForm = ({
           onChange={handleChange}
           rows="3"
           placeholder="Product description..."
+          disabled={loading}
         />
       </div>
 
@@ -142,6 +141,7 @@ const ProductForm = ({
             min="0"
             step="0.01"
             className={errors.purchasePrice ? 'error' : ''}
+            disabled={loading}
           />
           {errors.purchasePrice && <span className="error-text">{errors.purchasePrice}</span>}
         </div>
@@ -156,6 +156,7 @@ const ProductForm = ({
             min="0"
             step="0.01"
             className={errors.sellingPrice ? 'error' : ''}
+            disabled={loading}
           />
           {errors.sellingPrice && <span className="error-text">{errors.sellingPrice}</span>}
         </div>
@@ -168,6 +169,7 @@ const ProductForm = ({
             value={formData.currentStock}
             onChange={handleChange}
             min="0"
+            disabled={loading}
           />
         </div>
 
@@ -177,6 +179,7 @@ const ProductForm = ({
             name="unit"
             value={formData.unit}
             onChange={handleChange}
+            disabled={loading}
           >
             <option value="pcs">Pieces (pcs)</option>
             <option value="kg">Kilogram (kg)</option>
@@ -199,6 +202,7 @@ const ProductForm = ({
             onChange={handleChange}
             min="0"
             className={errors.minStock ? 'error' : ''}
+            disabled={loading}
           />
           {errors.minStock && <span className="error-text">{errors.minStock}</span>}
         </div>
@@ -212,15 +216,18 @@ const ProductForm = ({
             onChange={handleChange}
             min="0"
             className={errors.maxStock ? 'error' : ''}
+            disabled={loading}
           />
           {errors.maxStock && <span className="error-text">{errors.maxStock}</span>}
         </div>
       </div>
 
       <div className="form-actions">
-        <button type="button" className="btn-cancel" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="btn-submit">
-          {initialData ? 'Update Product' : 'Add Product'}
+        <button type="button" className="btn-cancel" onClick={onCancel} disabled={loading}>
+          Cancel
+        </button>
+        <button type="submit" className="btn-submit" disabled={loading}>
+          {loading ? 'Saving...' : (initialData ? 'Update Product' : 'Add Product')}
         </button>
       </div>
     </form>

@@ -1,3 +1,4 @@
+// src/context/StockContext.jsx
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import { stockService } from '../services';
 import { useNotification } from './NotificationContext';
@@ -23,13 +24,13 @@ export const StockProvider = ({ children }) => {
       setError(null);
       const response = await stockService.getStockOverview();
       setStockOverview(response.data);
+      setLoading(false); // ✅ FIXED: Success වුනාම loading false වෙන්න ඕන!
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to load stock overview');
       showError('Failed to load stock overview');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -40,13 +41,13 @@ export const StockProvider = ({ children }) => {
       setError(null);
       const response = await stockService.getStockMovements(params);
       setMovements(response.data || []);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to load movements');
       showError('Failed to load movements');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -84,13 +85,13 @@ export const StockProvider = ({ children }) => {
       await loadStockOverview();
       await loadLowStock();
       await loadOutOfStock();
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to add stock');
       showError('Failed to add stock');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError, loadStockOverview, loadLowStock, loadOutOfStock]);
 
@@ -104,13 +105,13 @@ export const StockProvider = ({ children }) => {
       await loadStockOverview();
       await loadLowStock();
       await loadOutOfStock();
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to remove stock');
       showError('Failed to remove stock');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError, loadStockOverview, loadLowStock, loadOutOfStock]);
 
@@ -124,13 +125,13 @@ export const StockProvider = ({ children }) => {
       await loadStockOverview();
       await loadLowStock();
       await loadOutOfStock();
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to adjust stock');
       showError('Failed to adjust stock');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError, loadStockOverview, loadLowStock, loadOutOfStock]);
 
@@ -140,7 +141,7 @@ export const StockProvider = ({ children }) => {
     loadMovements();
     loadLowStock();
     loadOutOfStock();
-  }, [loadStockOverview, loadMovements, loadLowStock, loadOutOfStock]);
+  }, []);
 
   const value = {
     stockOverview,
