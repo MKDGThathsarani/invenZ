@@ -1,4 +1,4 @@
-// src/pages/Dashboard.jsx - MODERN REDESIGN
+// src/pages/Dashboard.jsx - UPDATED VERSION
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProduct } from '../context/ProductContext';
@@ -57,9 +57,18 @@ const Dashboard = () => {
   const handleExportReport = () => navigate('/reports');
   const handleLowStockAlert = () => navigate('/stock');
 
+  // ============================================
+  // FEATURE CLICK HANDLERS - UPDATED ✅
+  // ============================================
+
   const handleFeatureClick = (feature) => {
+    // If feature is 'dashboard', navigate to '/dashboard'
+    if (feature === 'dashboard') {
+      navigate('/dashboard'); // Dashboard Page එකටම යයි (Reload වගේ)
+      return;
+    }
+    
     const paths = {
-      dashboard: '/',
       products: '/products',
       suppliers: '/suppliers',
       stock: '/stock',
@@ -91,33 +100,33 @@ const Dashboard = () => {
       value: suppliers?.length || 0, 
       label: 'Suppliers', 
       change: '+2', 
-      color: '#2196F3',
-      bg: '#E3F2FD'
+      color: '#2E7D32',
+      bg: '#E8F5E9'
     },
     { 
       icon: '💰', 
       value: `Rs. ${stockOverview?.totalValue?.toLocaleString() || '0'}`, 
       label: 'Total Value', 
       change: '+8%', 
-      color: '#9C27B0',
-      bg: '#F3E5F5'
+      color: '#4CAF50',
+      bg: '#E8F5E9'
     }
   ];
 
   const quickActions = [
     { icon: '➕', label: 'Add Product', color: '#1B5E20', action: handleAddProduct },
-    { icon: '📥', label: 'Import Data', color: '#43A047', action: handleImportData },
+    { icon: '📥', label: 'Import Data', color: '#2E7D32', action: handleImportData },
     { icon: '📤', label: 'Export Report', color: '#FF9800', action: handleExportReport },
     { icon: '⚠️', label: 'Low Stock Alert', color: '#F44336', action: handleLowStockAlert }
   ];
 
   const features = [
     { id: 'dashboard', icon: '📊', title: 'Dashboard', description: 'Real-time insights & analytics', color: '#1B5E20' },
-    { id: 'products', icon: '📦', title: 'Products', description: 'Complete product management', color: '#4CAF50' },
-    { id: 'suppliers', icon: '🏢', title: 'Suppliers', description: 'Manage supplier relationships', color: '#FF9800' },
-    { id: 'stock', icon: '📈', title: 'Stock', description: 'Real-time stock tracking', color: '#F44336' },
-    { id: 'orders', icon: '🛒', title: 'Orders', description: 'Purchase & sales orders', color: '#2196F3' },
-    { id: 'reports', icon: '📋', title: 'Reports', description: 'PDF & Excel reports', color: '#9C27B0' }
+    { id: 'products', icon: '📦', title: 'Products', description: 'Complete product management', color: '#2E7D32' },
+    { id: 'suppliers', icon: '🏢', title: 'Suppliers', description: 'Manage supplier relationships', color: '#4CAF50' },
+    { id: 'stock', icon: '📈', title: 'Stock', description: 'Real-time stock tracking', color: '#FF9800' },
+    { id: 'orders', icon: '🛒', title: 'Orders', description: 'Purchase & sales orders', color: '#1B5E20' },
+    { id: 'reports', icon: '📋', title: 'Reports', description: 'PDF & Excel reports', color: '#2E7D32' }
   ];
 
   if (loading) {
@@ -130,49 +139,60 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard-modern">
-      {/* Welcome Section */}
-      <div className="welcome-section">
-        <div>
-          <h1>📊 Dashboard</h1>
-          <p>Welcome back! Here's what's happening with your inventory.</p>
+    <div className="dashboard-premium">
+      {/* Hero Section with Brand */}
+      <div className="hero-section">
+        <div className="hero-content">
+          <div className="brand-badge">
+            <span className="brand-icon">🌿</span>
+            <span className="brand-name">Inven<span>Z</span></span>
+          </div>
+          <h1>Welcome to Your Inventory Hub</h1>
+          <p className="hero-subtitle">Smart Inventory Management System — Built for Sri Lankan Businesses 🇱🇰</p>
+          <div className="hero-stats-mini">
+            <span>📦 {totalCount || 0} Products</span>
+            <span>🏢 {suppliers?.length || 0} Suppliers</span>
+            <span>⚠️ {lowStockItems?.length || 0} Alerts</span>
+          </div>
         </div>
-        <div className="welcome-date">
+        <div className="hero-date">
           <span>📅 {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="stats-grid-modern">
+      <div className="stats-grid-premium">
         {stats.map((stat, index) => (
-          <div key={index} className="stat-card-modern" style={{ borderColor: stat.color, background: stat.bg }}>
-            <div className="stat-header">
-              <span className="stat-icon">{stat.icon}</span>
-              <span className="stat-change">{stat.change}</span>
+          <div key={index} className="stat-card-premium" style={{ borderColor: stat.color }}>
+            <div className="stat-icon-premium" style={{ background: stat.bg, color: stat.color }}>
+              {stat.icon}
             </div>
-            <div className="stat-value">{stat.value}</div>
-            <div className="stat-label">{stat.label}</div>
+            <div className="stat-content">
+              <div className="stat-value">{stat.value}</div>
+              <div className="stat-label">{stat.label}</div>
+              <div className="stat-change">{stat.change}</div>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Main Grid */}
-      <div className="main-grid">
+      <div className="main-grid-premium">
         {/* Welcome & Quick Actions */}
-        <div className="welcome-card-modern">
+        <div className="welcome-card-premium">
           <h2>👋 Welcome to InvenZ!</h2>
           <p>
             Your all-in-one inventory management solution. 
             Track products, manage suppliers, and monitor stock levels in real-time.
           </p>
           
-          <div className="quick-actions-modern">
+          <div className="quick-actions-premium">
             <h3>⚡ Quick Actions</h3>
-            <div className="action-grid-modern">
+            <div className="action-grid-premium">
               {quickActions.map((action, index) => (
                 <button 
                   key={index}
-                  className="action-btn-modern"
+                  className="action-btn-premium"
                   style={{ background: action.color }}
                   onClick={action.action}
                 >
@@ -185,7 +205,7 @@ const Dashboard = () => {
         </div>
 
         {/* Low Stock Alerts */}
-        <div className="alerts-card-modern">
+        <div className="alerts-card-premium">
           <div className="alerts-header">
             <span className="alerts-icon">⚠️</span>
             <h3>Low Stock Alerts</h3>
@@ -193,16 +213,17 @@ const Dashboard = () => {
           </div>
           <div className="alerts-list">
             {lowStockItems?.length === 0 ? (
-              <div className="no-alerts-modern">
+              <div className="no-alerts-premium">
                 <span>✅</span>
                 <p>All items are well-stocked</p>
+                <span className="no-alerts-sub">No action required</span>
               </div>
             ) : (
               lowStockItems.map((item, index) => (
                 <div key={index} className="alert-item">
                   <span className="alert-name">{item.name}</span>
                   <span className="alert-stock">{item.currentStock} left</span>
-                  <button className="alert-order-btn">Order</button>
+                  <button className="alert-order-btn">Order Now</button>
                 </div>
               ))
             )}
@@ -211,24 +232,34 @@ const Dashboard = () => {
       </div>
 
       {/* Features Section */}
-      <div className="features-section-modern">
-        <h3>✨ Key Features</h3>
-        <div className="features-grid-modern">
+      <div className="features-section-premium">
+        <div className="features-header">
+          <h3>✨ Key Features</h3>
+          <p>Everything you need to manage your inventory efficiently</p>
+        </div>
+        <div className="features-grid-premium">
           {features.map((feature) => (
             <div 
               key={feature.id}
-              className="feature-card-modern"
+              className="feature-card-premium"
               onClick={() => handleFeatureClick(feature.id)}
             >
-              <div className="feature-icon-modern" style={{ background: feature.color + '20', color: feature.color }}>
+              <div className="feature-icon-premium" style={{ background: feature.color + '15', color: feature.color }}>
                 {feature.icon}
               </div>
               <h4>{feature.title}</h4>
               <p>{feature.description}</p>
-              <span className="feature-arrow">→</span>
+              <span className="feature-arrow">
+                {feature.id === 'dashboard' ? '🔄 Refresh Dashboard' : 'Explore →'}
+              </span>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Footer Note */}
+      <div className="dashboard-footer">
+        <p>🌿 InvenZ — Smart Inventory Management for Sri Lankan Businesses</p>
       </div>
     </div>
   );

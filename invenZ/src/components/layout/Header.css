@@ -1,13 +1,32 @@
-.header {
-  background: #1B5E20;
-  padding: 12px 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+/* src/components/layout/Header.css - MODERN DESIGN */
+:root {
+  --primary: #1B5E20;
+  --secondary: #2E7D32;
+  --accent: #4CAF50;
+  --warning: #FF9800;
+  --danger: #F44336;
+  --bg: #F5F5F5;
+  --text: #1A1A1A;
+  --white: #FFFFFF;
+  --shadow: 0 4px 20px rgba(27, 94, 32, 0.12);
+  --radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   HEADER MODERN
+   ============================================ */
+.header-modern {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 10px 24px;
+  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-bottom: 3px solid var(--warning);
 }
 
-.header-container {
+.header-container-modern {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -16,94 +35,262 @@
   gap: 20px;
 }
 
-.header-brand {
+/* ============================================
+   BRAND
+   ============================================ */
+.header-brand-modern {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.brand-icon { font-size: 1.8rem; }
-.brand-name { font-size: 1.6rem; font-weight: 800; color: white; }
-.brand-name span { color: #FF9800; }
-.brand-tagline { font-size: 0.7rem; color: rgba(255, 255, 255, 0.7); font-weight: 300; }
+.brand-icon-modern {
+  font-size: 1.8rem;
+  animation: pulse-icon 3s ease-in-out infinite;
+}
 
-.header-search {
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.brand-name-modern {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+
+.brand-name-modern span {
+  color: var(--warning);
+}
+
+.brand-tagline-modern {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+/* ============================================
+   SEARCH
+   ============================================ */
+.header-search-modern {
   display: flex;
   flex: 1;
   max-width: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: var(--transition);
 }
 
-.search-input {
+.header-search-modern:focus-within {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--warning);
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.15);
+}
+
+.search-icon-modern {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.search-input-modern {
   flex: 1;
-  padding: 10px 16px;
+  padding: 10px 12px;
   border: none;
-  border-radius: 8px 0 0 8px;
-  font-size: 0.95rem;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.9rem;
   outline: none;
 }
 
-.search-btn {
-  padding: 10px 16px;
-  background: #FF9800;
-  border: none;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
+.search-input-modern::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
-.search-btn:hover { background: #E65100; }
 
-.header-actions {
+.search-btn-modern {
+  padding: 8px 20px;
+  background: var(--warning);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.search-btn-modern:hover {
+  background: #E65100;
+  transform: scale(1.02);
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+.header-actions-modern {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
 }
 
-.notification-btn {
+.notification-btn-modern {
   position: relative;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.08);
   border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  padding: 8px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  transition: background 0.3s ease;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.notification-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-.badge {
+.notification-btn-modern:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.05);
+}
+
+.notification-icon {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.notification-badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  background: #F44336;
-  color: white;
+  top: -2px;
+  right: -2px;
+  background: var(--danger);
+  color: var(--white);
   font-size: 0.6rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 50%;
   min-width: 18px;
   text-align: center;
+  border: 2px solid var(--primary);
 }
 
-.user-profile {
+.user-profile-modern {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
+  padding: 4px 12px 4px 4px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.user-avatar {
-  width: 35px;
-  height: 35px;
+.user-profile-modern:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.user-avatar-modern {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
 }
 
-.user-name { color: white; font-weight: 500; }
+.user-info-modern {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name-modern {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.user-role-modern {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.65rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+  .brand-tagline-modern {
+    display: none;
+  }
+  
+  .user-role-modern {
+    display: none;
+  }
+  
+  .user-profile-modern {
+    padding: 4px;
+  }
+}
 
 @media (max-width: 768px) {
-  .header-search { display: none; }
-  .brand-tagline { display: none; }
-  .user-name { display: none; }
+  .header-modern {
+    padding: 8px 16px;
+  }
+  
+  .header-search-modern {
+    max-width: 300px;
+  }
+  
+  .search-btn-modern {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+  }
+  
+  .brand-name-modern {
+    font-size: 1.2rem;
+  }
+  
+  .user-info-modern {
+    display: none;
+  }
+  
+  .user-profile-modern {
+    padding: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-search-modern {
+    max-width: 150px;
+  }
+  
+  .search-btn-modern {
+    display: none;
+  }
+  
+  .brand-tagline-modern {
+    display: none;
+  }
+  
+  .notification-btn-modern {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .user-avatar-modern {
+    width: 30px;
+    height: 30px;
+  }
 }

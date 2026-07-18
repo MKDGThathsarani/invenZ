@@ -44,7 +44,7 @@ function App() {
                 <OrderProvider>
                   <BrowserRouter>
                     <Routes>
-                      {/* Dashboard */}
+                      {/* Dashboard - Default Route */}
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       
