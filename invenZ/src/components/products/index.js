@@ -1,3 +1,4 @@
+// src/components/products/index.js
 export { default as ProductCard } from './ProductCard';
 export { default as ProductDetails } from './ProductDetails';
 export { default as ProductFilters } from './ProductFilters';

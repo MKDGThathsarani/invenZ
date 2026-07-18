@@ -1,3 +1,4 @@
+// src/context/SupplierContext.jsx
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import { supplierService } from '../services';
 import { useNotification } from './NotificationContext';
@@ -23,13 +24,13 @@ export const SupplierProvider = ({ children }) => {
       const response = await supplierService.getAll(params);
       setSuppliers(response.data || []);
       setTotalCount(response.total || response.data?.length || 0);
+      setLoading(false); // ✅ FIXED: Success වුනාම loading false වෙන්න ඕන!
       return response;
     } catch (err) {
       setError(err.message || 'Failed to load suppliers');
       showError('Failed to load suppliers');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -39,12 +40,12 @@ export const SupplierProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await supplierService.getById(id);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to get supplier');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, []);
 
@@ -57,13 +58,13 @@ export const SupplierProvider = ({ children }) => {
       setSuppliers(prev => [response.data, ...prev]);
       setTotalCount(prev => prev + 1);
       success('Supplier added successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to create supplier');
       showError('Failed to create supplier');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -77,13 +78,13 @@ export const SupplierProvider = ({ children }) => {
         prev.map(s => s.id === id ? { ...s, ...response.data } : s)
       );
       success('Supplier updated successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update supplier');
       showError('Failed to update supplier');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -96,13 +97,13 @@ export const SupplierProvider = ({ children }) => {
       setSuppliers(prev => prev.filter(s => s.id !== id));
       setTotalCount(prev => prev - 1);
       success('Supplier deleted successfully!');
+      setLoading(false);
       return true;
     } catch (err) {
       setError(err.message || 'Failed to delete supplier');
       showError('Failed to delete supplier');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -123,12 +124,12 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await supplierService.search(query);
+      setLoading(false);
       return response.data || [];
     } catch (err) {
       console.error('Search failed:', err);
-      return [];
-    } finally {
       setLoading(false);
+      return [];
     }
   }, []);
 
@@ -136,7 +137,7 @@ export const SupplierProvider = ({ children }) => {
   useEffect(() => {
     loadSuppliers();
     loadTopRated();
-  }, [loadSuppliers, loadTopRated]);
+  }, []);
 
   const value = {
     suppliers,

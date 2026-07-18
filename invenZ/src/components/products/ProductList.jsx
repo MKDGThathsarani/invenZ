@@ -1,3 +1,4 @@
+// src/components/products/ProductList.jsx
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
 import ProductFilters from './ProductFilters';
@@ -5,12 +6,12 @@ import './ProductList.css';
 
 const ProductList = ({ 
   products = [], 
+  loading = false,
   onAdd, 
   onEdit, 
   onDelete, 
   onView,
-  categories = [],
-  suppliers = []
+  categories = []
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -20,7 +21,7 @@ const ProductList = ({
     .filter(product => {
       const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            product.sku?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
@@ -32,13 +33,12 @@ const ProductList = ({
       }
     });
 
+  if (loading) {
+    return <div className="loader-container">Loading products...</div>;
+  }
+
   return (
     <div className="product-list">
-      <div className="list-header">
-        <h3>📦 Products</h3>
-        <button className="btn-add" onClick={onAdd}>+ Add Product</button>
-      </div>
-
       <ProductFilters
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
@@ -49,10 +49,16 @@ const ProductList = ({
         categories={categories}
       />
 
+      <div className="product-stats">
+        <span>Showing {filteredProducts.length} of {products.length} products</span>
+      </div>
+
       {filteredProducts.length === 0 ? (
         <div className="empty-state">
-          <p>📭 No products found</p>
+          <div className="empty-icon">📭</div>
+          <p>No products found</p>
           <p className="empty-hint">Try adjusting your filters or add a new product</p>
+          <button className="btn-add" onClick={onAdd}>+ Add Product</button>
         </div>
       ) : (
         <div className="products-grid">

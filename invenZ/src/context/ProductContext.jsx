@@ -1,3 +1,4 @@
+// src/context/ProductContext.jsx
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import { productService } from '../services';
 import { useNotification } from './NotificationContext';
@@ -24,13 +25,13 @@ export const ProductProvider = ({ children }) => {
       const response = await productService.getAll(params);
       setProducts(response.data || []);
       setTotalCount(response.total || response.data?.length || 0);
+      setLoading(false); // ✅ FIXED: Success වුනාම loading false වෙන්න ඕන!
       return response;
     } catch (err) {
       setError(err.message || 'Failed to load products');
       showError('Failed to load products');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -52,12 +53,12 @@ export const ProductProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await productService.getById(id);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to get product');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, []);
 
@@ -70,13 +71,13 @@ export const ProductProvider = ({ children }) => {
       setProducts(prev => [response.data, ...prev]);
       setTotalCount(prev => prev + 1);
       success('Product created successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to create product');
       showError('Failed to create product');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -90,13 +91,13 @@ export const ProductProvider = ({ children }) => {
         prev.map(p => p.id === id ? { ...p, ...response.data } : p)
       );
       success('Product updated successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update product');
       showError('Failed to update product');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -109,13 +110,13 @@ export const ProductProvider = ({ children }) => {
       setProducts(prev => prev.filter(p => p.id !== id));
       setTotalCount(prev => prev - 1);
       success('Product deleted successfully!');
+      setLoading(false);
       return true;
     } catch (err) {
       setError(err.message || 'Failed to delete product');
       showError('Failed to delete product');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -136,12 +137,12 @@ export const ProductProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await productService.search(query);
+      setLoading(false);
       return response.data || [];
     } catch (err) {
       console.error('Search failed:', err);
-      return [];
-    } finally {
       setLoading(false);
+      return [];
     }
   }, []);
 
@@ -150,7 +151,7 @@ export const ProductProvider = ({ children }) => {
     loadProducts();
     loadCategories();
     loadLowStock();
-  }, [loadProducts, loadCategories, loadLowStock]);
+  }, []);
 
   const value = {
     products,

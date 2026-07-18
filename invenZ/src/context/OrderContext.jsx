@@ -1,3 +1,4 @@
+// src/context/OrderContext.jsx
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import { orderService } from '../services';
 import { useNotification } from './NotificationContext';
@@ -25,13 +26,13 @@ export const OrderProvider = ({ children }) => {
       setError(null);
       const response = await orderService.getPurchaseOrders(params);
       setPurchaseOrders(response.data || []);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to load purchase orders');
       showError('Failed to load purchase orders');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -42,13 +43,13 @@ export const OrderProvider = ({ children }) => {
       const response = await orderService.createPurchaseOrder(data);
       setPurchaseOrders(prev => [response.data, ...prev]);
       success('Purchase order created successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to create purchase order');
       showError('Failed to create purchase order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -61,13 +62,13 @@ export const OrderProvider = ({ children }) => {
         prev.map(o => o.id === id ? { ...o, ...response.data } : o)
       );
       success('Purchase order updated successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update purchase order');
       showError('Failed to update purchase order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -78,13 +79,13 @@ export const OrderProvider = ({ children }) => {
       await orderService.deletePurchaseOrder(id);
       setPurchaseOrders(prev => prev.filter(o => o.id !== id));
       success('Purchase order deleted successfully!');
+      setLoading(false);
       return true;
     } catch (err) {
       setError(err.message || 'Failed to delete purchase order');
       showError('Failed to delete purchase order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -97,13 +98,13 @@ export const OrderProvider = ({ children }) => {
         prev.map(o => o.id === id ? { ...o, status: response.data.status } : o)
       );
       success(`Order status updated to ${status}`);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update order status');
       showError('Failed to update order status');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -117,13 +118,13 @@ export const OrderProvider = ({ children }) => {
       setError(null);
       const response = await orderService.getSalesOrders(params);
       setSalesOrders(response.data || []);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to load sales orders');
       showError('Failed to load sales orders');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [showError]);
 
@@ -134,13 +135,13 @@ export const OrderProvider = ({ children }) => {
       const response = await orderService.createSalesOrder(data);
       setSalesOrders(prev => [response.data, ...prev]);
       success('Sales order created successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to create sales order');
       showError('Failed to create sales order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -153,13 +154,13 @@ export const OrderProvider = ({ children }) => {
         prev.map(o => o.id === id ? { ...o, ...response.data } : o)
       );
       success('Sales order updated successfully!');
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update sales order');
       showError('Failed to update sales order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -170,13 +171,13 @@ export const OrderProvider = ({ children }) => {
       await orderService.deleteSalesOrder(id);
       setSalesOrders(prev => prev.filter(o => o.id !== id));
       success('Sales order deleted successfully!');
+      setLoading(false);
       return true;
     } catch (err) {
       setError(err.message || 'Failed to delete sales order');
       showError('Failed to delete sales order');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -189,13 +190,13 @@ export const OrderProvider = ({ children }) => {
         prev.map(o => o.id === id ? { ...o, status: response.data.status } : o)
       );
       success(`Order status updated to ${status}`);
+      setLoading(false);
       return response.data;
     } catch (err) {
       setError(err.message || 'Failed to update order status');
       showError('Failed to update order status');
-      throw err;
-    } finally {
       setLoading(false);
+      throw err;
     }
   }, [success, showError]);
 
@@ -219,7 +220,7 @@ export const OrderProvider = ({ children }) => {
     loadPurchaseOrders();
     loadSalesOrders();
     loadOrderStats();
-  }, [loadPurchaseOrders, loadSalesOrders, loadOrderStats]);
+  }, []);
 
   const value = {
     purchaseOrders,

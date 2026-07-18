@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useReport } from '../services/reportService';
 import Card from '../components/common/Card';
 import './Reports.css';
 

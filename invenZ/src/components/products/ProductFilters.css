@@ -1,8 +1,9 @@
+/* src/components/products/ProductFilters.css */
 .product-filters {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  padding: 12px 0;
+  padding-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -24,6 +25,7 @@
 
 .search-box input:focus {
   border-color: #1B5E20;
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
 }
 
 .search-icon {
@@ -47,10 +49,12 @@
   outline: none;
   background: white;
   min-width: 140px;
+  cursor: pointer;
 }
 
 .filter-select:focus {
   border-color: #1B5E20;
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
 }
 
 @media (max-width: 768px) {

@@ -1,3 +1,4 @@
+// src/context/index.js
 export { AuthProvider, useAuth } from './AuthContext';
 export { NotificationProvider, useNotification } from './NotificationContext';
 export { ProductProvider, useProduct } from './ProductContext';
