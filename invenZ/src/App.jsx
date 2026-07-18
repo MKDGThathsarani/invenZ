@@ -1,7 +1,7 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/layout/Layout';  // ✅ Layout Import කරන්න
+import Layout from './components/layout/Layout';
 import { 
   AuthProvider, 
   NotificationProvider, 
@@ -19,6 +19,7 @@ import Products from './pages/Products';
 import AddProduct from './pages/AddProduct';
 import EditProduct from './pages/EditProduct';
 import ProductDetails from './pages/ProductDetails';
+import Categories from './pages/Categories';  // ✅ Categories Import කරන්න
 import Suppliers from './pages/Suppliers';
 import AddSupplier from './pages/AddSupplier';
 import SupplierDetails from './pages/SupplierDetails';
@@ -48,6 +49,9 @@ function App() {
                       {/* Dashboard - Default Route */}
                       <Route path="/" element={<Layout><Dashboard /></Layout>} />
                       <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+                      
+                      {/* Categories */}
+                      <Route path="/categories" element={<Layout><Categories /></Layout>} />  {/* ✅ Categories Route එක Add කරන්න */}
                       
                       {/* Products */}
                       <Route path="/products" element={<Layout><Products /></Layout>} />
