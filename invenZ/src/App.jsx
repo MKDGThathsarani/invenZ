@@ -1,6 +1,7 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/layout/Layout';  // ✅ Layout Import කරන්න
 import { 
   AuthProvider, 
   NotificationProvider, 
@@ -45,34 +46,34 @@ function App() {
                   <BrowserRouter>
                     <Routes>
                       {/* Dashboard - Default Route */}
-                      <Route path="/" element={<Dashboard />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/" element={<Layout><Dashboard /></Layout>} />
+                      <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
                       
                       {/* Products */}
-                      <Route path="/products" element={<Products />} />
-                      <Route path="/products/add" element={<AddProduct />} />
-                      <Route path="/products/edit/:id" element={<EditProduct />} />
-                      <Route path="/products/:id" element={<ProductDetails />} />
+                      <Route path="/products" element={<Layout><Products /></Layout>} />
+                      <Route path="/products/add" element={<Layout><AddProduct /></Layout>} />
+                      <Route path="/products/edit/:id" element={<Layout><EditProduct /></Layout>} />
+                      <Route path="/products/:id" element={<Layout><ProductDetails /></Layout>} />
                       
                       {/* Suppliers */}
-                      <Route path="/suppliers" element={<Suppliers />} />
-                      <Route path="/suppliers/add" element={<AddSupplier />} />
-                      <Route path="/suppliers/:id" element={<SupplierDetails />} />
+                      <Route path="/suppliers" element={<Layout><Suppliers /></Layout>} />
+                      <Route path="/suppliers/add" element={<Layout><AddSupplier /></Layout>} />
+                      <Route path="/suppliers/:id" element={<Layout><SupplierDetails /></Layout>} />
                       
                       {/* Stock */}
-                      <Route path="/stock" element={<Stock />} />
-                      <Route path="/stock/movements" element={<StockMovements />} />
+                      <Route path="/stock" element={<Layout><Stock /></Layout>} />
+                      <Route path="/stock/movements" element={<Layout><StockMovements /></Layout>} />
                       
                       {/* Orders */}
-                      <Route path="/orders" element={<Orders />} />
-                      <Route path="/orders/purchase" element={<PurchaseOrders />} />
-                      <Route path="/orders/sales" element={<SalesOrders />} />
+                      <Route path="/orders" element={<Layout><Orders /></Layout>} />
+                      <Route path="/orders/purchase" element={<Layout><PurchaseOrders /></Layout>} />
+                      <Route path="/orders/sales" element={<Layout><SalesOrders /></Layout>} />
                       
                       {/* Reports */}
-                      <Route path="/reports" element={<Reports />} />
+                      <Route path="/reports" element={<Layout><Reports /></Layout>} />
                       
                       {/* Settings */}
-                      <Route path="/settings" element={<Settings />} />
+                      <Route path="/settings" element={<Layout><Settings /></Layout>} />
                       
                       {/* Auth */}
                       <Route path="/login" element={<Login />} />
