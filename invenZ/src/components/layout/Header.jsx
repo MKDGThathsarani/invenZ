@@ -1,10 +1,12 @@
-// src/components/layout/Header.jsx - MODERN REDESIGN
+// src/components/layout/Header.jsx - WITH LOGIN/LOGOUT
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -13,6 +15,11 @@ const Header = () => {
     if (searchQuery.trim()) {
       navigate(`/products?search=${searchQuery}`);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -48,17 +55,31 @@ const Header = () => {
             <span className="notification-badge">3</span>
           </button>
 
-          <div className="user-profile-modern">
-            <img
-              src="https://ui-avatars.com/api/?name=Admin&background=1B5E20&color=fff&bold=true&size=40"
-              alt="User"
-              className="user-avatar-modern"
-            />
-            <div className="user-info-modern">
-              <span className="user-name-modern">Admin</span>
-              <span className="user-role-modern">Administrator</span>
+          {isAuthenticated ? (
+            // Logged In - Show User Profile
+            <div className="user-profile-modern">
+              <img
+                src={`https://ui-avatars.com/api/?name=${user?.name || 'Admin'}&background=1B5E20&color=fff&bold=true&size=40`}
+                alt="User"
+                className="user-avatar-modern"
+              />
+              <div className="user-info-modern">
+                <span className="user-name-modern">{user?.name || 'Admin'}</span>
+                <span className="user-role-modern">{user?.role || 'Administrator'}</span>
+              </div>
+              <button className="logout-btn-modern" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
-          </div>
+          ) : (
+            // Not Logged In - Show Login Button
+            <button 
+              className="login-btn-modern" 
+              onClick={() => navigate('/login')}
+            >
+              🔐 Login
+            </button>
+          )}
         </div>
       </div>
     </header>
