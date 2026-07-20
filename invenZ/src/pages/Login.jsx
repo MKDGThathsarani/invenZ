@@ -1,4 +1,4 @@
-// src/pages/Login.jsx - WITH MULTIPLE USERS
+// src/pages/Login.jsx - CONNECTED TO BACKEND
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -9,27 +9,22 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showDemoUsers, setShowDemoUsers] = useState(false);
-  const { login, users } = useAuth();
-  const { error: showError } = useNotification();
+  const { login } = useAuth();
+  const { error: showError, success } = useNotification();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await login(email, password);
+      const response = await login(email, password);
+      success(response.message || 'Login successful!');
       navigate('/');
     } catch (err) {
       showError(err.message || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
-  };
-
-  const fillCredentials = (userEmail, userPassword) => {
-    setEmail(userEmail);
-    setPassword(userPassword);
   };
 
   return (
@@ -76,38 +71,6 @@ const Login = () => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-
-        {/* ✅ Demo Users - Quick Login */}
-        <div className="demo-users">
-          <button 
-            type="button"
-            className="demo-toggle"
-            onClick={() => setShowDemoUsers(!showDemoUsers)}
-          >
-            {showDemoUsers ? 'Hide Demo Users' : 'Show Demo Users'}
-          </button>
-          
-          {showDemoUsers && (
-            <div className="demo-users-list">
-              {users?.map((user) => (
-                <div 
-                  key={user.id}
-                  className="demo-user-item"
-                  onClick={() => fillCredentials(user.email, user.password)}
-                >
-                  <img src={user.avatar} alt={user.name} />
-                  <div>
-                    <strong>{user.name}</strong>
-                    <small>{user.email}</small>
-                    <span className={`role-badge ${user.role.toLowerCase()}`}>
-                      {user.role}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
 
         <div className="footer-links">
           <p>

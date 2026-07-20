@@ -1,3 +1,4 @@
+// src/pages/Register.jsx - CONNECTED TO BACKEND
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -9,11 +10,12 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    phone: ''
   });
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
-  const { success, error } = useNotification();
+  const { success, error: showError } = useNotification();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,21 +26,22 @@ const Register = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      error('Passwords do not match');
+      showError('Passwords do not match');
       return;
     }
 
     try {
       setLoading(true);
-      await register({
+      const response = await register({
         name: formData.name,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
+        phone: formData.phone
       });
-      success('Account created successfully! Please login.');
-      navigate('/login');
+      success(response.message || 'Account created successfully!');
+      navigate('/');
     } catch (err) {
-      error(err.message || 'Registration failed');
+      showError(err.message || 'Registration failed');
     } finally {
       setLoading(false);
     }
@@ -55,7 +58,7 @@ const Register = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Full Name</label>
+            <label>Full Name *</label>
             <input
               type="text"
               name="name"
@@ -68,7 +71,7 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Email Address</label>
+            <label>Email Address *</label>
             <input
               type="email"
               name="email"
@@ -81,7 +84,7 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label>Password *</label>
             <input
               type="password"
               name="password"
@@ -95,7 +98,7 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Confirm Password</label>
+            <label>Confirm Password *</label>
             <input
               type="password"
               name="confirmPassword"
@@ -103,6 +106,18 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Confirm your password"
               required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
               disabled={loading}
             />
           </div>
