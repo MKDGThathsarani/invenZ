@@ -1,0 +1,100 @@
+import React, { useState } from 'react';
+import './SalesOrderList.css';
+
+const SalesOrderList = ({ orders = [], onView, onEdit, onDelete }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+
+  const statusColors = {
+    pending: 'warning',
+    processing: 'info',
+    shipped: 'primary',
+    delivered: 'success',
+    cancelled: 'danger'
+  };
+
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch = order.orderNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          order.customer?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === 'all' || order.status === filterStatus;
+    return matchesSearch && matchesStatus;
+  });
+
+  const getStatusBadge = (status) => {
+    return <span className={`status-badge ${statusColors[status] || 'default'}`}>{status}</span>;
+  };
+
+  return (
+    <div className="sales-order-list">
+      <div className="list-header">
+        <h3>🛒 Sales Orders</h3>
+        <button className="btn-add">+ New Order</button>
+      </div>
+
+      <div className="list-filters">
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search orders..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <span className="search-icon">🔍</span>
+        </div>
+        <select 
+          className="filter-select"
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+        >
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div className="table-container">
+        {filteredOrders.length === 0 ? (
+          <div className="empty-state">
+            <p>📭 No sales orders found</p>
+          </div>
+        ) : (
+          <table className="orders-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredOrders.map((order) => (
+                <tr key={order.id}>
+                  <td className="order-number">{order.orderNumber}</td>
+                  <td>{order.customer}</td>
+                  <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+                  <td className="total-amount">Rs. {order.totalAmount?.toLocaleString()}</td>
+                  <td>{getStatusBadge(order.status)}</td>
+                  <td>
+                    <div className="action-buttons">
+                      <button className="btn-view" onClick={() => onView?.(order)}>👁️</button>
+                      <button className="btn-edit" onClick={() => onEdit?.(order)}>✏️</button>
+                      <button className="btn-delete" onClick={() => onDelete?.(order)}>🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default SalesOrderList;

@@ -1,0 +1,48 @@
+.sales-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sales-chart-title {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sales-chart-title::before {
+  content: '📈';
+}
+
+.sales-chart-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.sales-chart-canvas {
+  width: 100%;
+  height: auto;
+}
+
+.sales-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: #f8faf8;
+  border-radius: 8px;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .sales-chart {
+    padding: 16px;
+  }
+}

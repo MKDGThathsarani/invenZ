@@ -1,0 +1,266 @@
+.low-stock-alert-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.low-stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.low-stock-header.has-alerts {
+  border-bottom: 2px solid #FFEBEE;
+  padding-bottom: 12px;
+}
+
+.low-stock-header.no-alerts {
+  border-bottom: 2px solid #E8F5E9;
+  padding-bottom: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  font-size: 1.5rem;
+}
+
+.low-stock-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.header-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.expand-btn {
+  background: transparent;
+  border: none;
+  color: #1B5E20;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.expand-btn:hover {
+  background: #f0f5f0;
+}
+
+.stock-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.stock-items.collapsed {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.stock-items.expanded {
+  max-height: none;
+}
+
+.stock-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #f8faf8;
+  transition: all 0.2s ease;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stock-item:hover {
+  background: #f0f5f0;
+}
+
+.stock-item.critical {
+  border-left: 4px solid #F44336;
+  background: #fff5f5;
+}
+
+.stock-item.low {
+  border-left: 4px solid #FF9800;
+  background: #fff8f0;
+}
+
+.stock-item.medium {
+  border-left: 4px solid #FFC107;
+  background: #fffde7;
+}
+
+.stock-item.good {
+  border-left: 4px solid #43A047;
+  background: #f0faf0;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.item-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot.critical { background: #F44336; }
+.status-dot.low { background: #FF9800; }
+.status-dot.medium { background: #FFC107; }
+.status-dot.good { background: #43A047; }
+
+.item-sku {
+  font-size: 0.7rem;
+  color: #999;
+  font-weight: 400;
+}
+
+.item-stock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stock-count {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.stock-count.critical { color: #F44336; }
+.stock-count.low { color: #FF9800; }
+
+.stock-min {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stock-status-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.stock-item.critical .stock-status-text { color: #F44336; }
+.stock-item.low .stock-status-text { color: #FF9800; }
+.stock-item.medium .stock-status-text { color: #FFC107; }
+.stock-item.good .stock-status-text { color: #43A047; }
+
+.order-btn {
+  padding: 4px 16px;
+  background: #1B5E20;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.order-btn:hover {
+  background: #0D3B12;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(27, 94, 32, 0.3);
+}
+
+.no-alerts-message {
+  text-align: center;
+  padding: 16px;
+  color: #43A047;
+  font-weight: 500;
+}
+
+.low-stock-alert.success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #E8F5E9;
+  border-radius: 8px;
+  border-left: 4px solid #43A047;
+}
+
+.low-stock-alert.success .alert-icon {
+  font-size: 1.5rem;
+}
+
+.low-stock-alert.success h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1B5E20;
+}
+
+.low-stock-alert.success p {
+  margin: 2px 0 0 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .low-stock-alert-container {
+    padding: 16px;
+  }
+
+  .stock-item {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-info {
+    width: 100%;
+  }
+
+  .item-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .low-stock-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .expand-btn {
+    align-self: flex-start;
+  }
+}

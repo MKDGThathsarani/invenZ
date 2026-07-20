@@ -1,0 +1,95 @@
+.supplier-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.supplier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.supplier-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.supplier-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1B5E20;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.supplier-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+.rating {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.supplier-details {
+  margin: 12px 0;
+}
+
+.supplier-details p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.supplier-details .contact-person {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.supplier-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 12px;
+}
+
+.supplier-actions button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.supplier-actions .btn-view {
+  background: #E3F2FD;
+  color: #0D47A1;
+}
+.supplier-actions .btn-view:hover { background: #BBDEFB; }
+
+.supplier-actions .btn-edit {
+  background: #FFF3E0;
+  color: #E65100;
+}
+.supplier-actions .btn-edit:hover { background: #FFE0B2; }
+
+.supplier-actions .btn-delete {
+  background: #FFEBEE;
+  color: #C62828;
+}
+.supplier-actions .btn-delete:hover { background: #FFCDD2; }

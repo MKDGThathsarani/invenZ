@@ -1,0 +1,129 @@
+.recent-activity {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.recent-activity-title {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recent-activity-title::before {
+  content: '📋';
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.activity-item:hover {
+  background: #f8faf8;
+}
+
+.activity-item.success { border-left-color: #43A047; }
+.activity-item.warning { border-left-color: #FF9800; }
+.activity-item.danger { border-left-color: #F44336; }
+.activity-item.info { border-left-color: #2196F3; }
+.activity-item.primary { border-left-color: #1B5E20; }
+.activity-item.default { border-left-color: #999; }
+
+.activity-icon {
+  font-size: 1.2rem;
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.activity-text .highlight {
+  font-weight: 600;
+  color: #1B5E20;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 2px;
+}
+
+.activity-user {
+  color: #666;
+}
+
+.activity-amount {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1B5E20;
+  flex-shrink: 0;
+}
+
+.activity-view-all {
+  text-align: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.activity-view-all a {
+  font-size: 0.85rem;
+  color: #1B5E20;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.activity-view-all a:hover {
+  color: #0D3B12;
+}
+
+.recent-activity-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .recent-activity {
+    padding: 16px;
+  }
+  
+  .activity-item {
+    padding: 8px 10px;
+  }
+  
+  .activity-text {
+    font-size: 0.85rem;
+  }
+}

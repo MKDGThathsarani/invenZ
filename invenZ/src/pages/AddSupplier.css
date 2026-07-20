@@ -1,0 +1,19 @@
+.add-supplier-page {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.add-supplier-page .page-header {
+  margin-bottom: 24px;
+}
+
+.add-supplier-page .page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.add-supplier-page .page-header p {
+  color: #666;
+}

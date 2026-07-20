@@ -1,0 +1,30 @@
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.theme-toggle:hover {
+  border-color: #1B5E20;
+}
+
+.theme-toggle.dark {
+  border-color: #555;
+  color: #fff;
+}
+
+.toggle-icon {
+  font-size: 1.1rem;
+}
+
+.toggle-label {
+  font-size: 0.8rem;
+}

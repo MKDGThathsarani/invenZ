@@ -1,0 +1,111 @@
+.navbar {
+  background: #1B5E20;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.brand-icon { font-size: 1.6rem; }
+.brand-name { font-size: 1.4rem; font-weight: 800; color: white; }
+
+.navbar-search {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.navbar-search .search-input {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.navbar-search .search-btn {
+  padding: 8px 16px;
+  background: #FF9800;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
+}
+
+.login-btn {
+  padding: 6px 20px;
+  background: #FF9800;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-search {
+    order: 3;
+    flex: 1 1 100%;
+    margin: 8px 0 0 0;
+  }
+  
+  .user-name {
+    display: none;
+  }
+}
