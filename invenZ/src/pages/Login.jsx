@@ -1,4 +1,4 @@
-// src/pages/Login.jsx - CONNECTED TO BACKEND
+// src/pages/Login.jsx - WITH DEMO USERS LIST
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -9,7 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const [showDemoUsers, setShowDemoUsers] = useState(false);
+  const { login, users } = useAuth();
   const { error: showError, success } = useNotification();
   const navigate = useNavigate();
 
@@ -25,6 +26,11 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fillCredentials = (userEmail, userPassword) => {
+    setEmail(userEmail);
+    setPassword(userPassword);
   };
 
   return (
@@ -71,6 +77,39 @@ const Login = () => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        {/* ✅ Demo Users - Quick Login */}
+        <div className="demo-users">
+          <button 
+            type="button"
+            className="demo-toggle"
+            onClick={() => setShowDemoUsers(!showDemoUsers)}
+          >
+            {showDemoUsers ? 'Hide Demo Users' : 'Show Demo Users'}
+          </button>
+          
+          {showDemoUsers && (
+            <div className="demo-users-list">
+              {users?.map((user) => (
+                <div 
+                  key={user.id}
+                  className="demo-user-item"
+                  onClick={() => fillCredentials(user.email, user.password)}
+                >
+                  <img src={user.avatar} alt={user.name} />
+                  <div className="user-info">
+                    <span className="user-name">{user.name}</span>
+                    <span className="user-email">{user.email}</span>
+                    <span className={`user-role ${user.role.toLowerCase()}`}>
+                      {user.role}
+                    </span>
+                  </div>
+                  <span className="user-badge">Click to Login</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="footer-links">
           <p>
