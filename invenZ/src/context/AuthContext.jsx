@@ -1,4 +1,4 @@
-// src/context/AuthContext.jsx - AUTO LOGIN + DEMO MODE
+// src/context/AuthContext.jsx - AUTO LOGIN + DEMO MODE WITH PASSWORD VALIDATION
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services';
 
@@ -171,7 +171,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
-  // Update profile
+  // ✅ Update profile
   const updateProfile = async (userData) => {
     try {
       setLoading(true);
@@ -180,6 +180,12 @@ export const AuthProvider = ({ children }) => {
       const updatedUser = { ...user, ...userData };
       setUser(updatedUser);
       localStorage.setItem('auth_user', JSON.stringify(updatedUser));
+      
+      // Update DEMO_USERS array
+      const userIndex = DEMO_USERS.findIndex(u => u.email === user?.email);
+      if (userIndex !== -1) {
+        DEMO_USERS[userIndex].name = userData.name || DEMO_USERS[userIndex].name;
+      }
       
       setLoading(false);
       return { data: { user: updatedUser } };
@@ -191,19 +197,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Change password
+  // ✅ Change Password - UPDATED WITH VALIDATION
   const changePassword = async (currentPassword, newPassword) => {
     try {
       setLoading(true);
       setError(null);
       
+      // Find user in DEMO_USERS array
       const userIndex = DEMO_USERS.findIndex(u => u.email === user?.email);
-      if (userIndex !== -1) {
-        DEMO_USERS[userIndex].password = newPassword;
+      
+      if (userIndex === -1) {
+        throw new Error('User not found');
       }
       
+      // ✅ Verify current password
+      if (DEMO_USERS[userIndex].password !== currentPassword) {
+        throw new Error('❌ Current password is incorrect');
+      }
+      
+      // ✅ Check if new password is same as current
+      if (currentPassword === newPassword) {
+        throw new Error('❌ New password must be different from current password');
+      }
+      
+      // ✅ Check password length
+      if (newPassword.length < 6) {
+        throw new Error('❌ New password must be at least 6 characters');
+      }
+      
+      // ✅ Update password in DEMO_USERS
+      DEMO_USERS[userIndex].password = newPassword;
+      
+      // ✅ Log success
+      console.log('✅ Password changed successfully for:', user?.email);
+      console.log('📝 New password:', newPassword);
+      
       setLoading(false);
-      return { success: true };
+      return { success: true, message: 'Password changed successfully!' };
     } catch (err) {
       setError(err.message || 'Failed to change password');
       throw err;
@@ -212,7 +242,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Forgot password
+  // ✅ Forgot password
   const forgotPassword = async (email) => {
     try {
       setLoading(true);
@@ -233,7 +263,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Reset password
+  // ✅ Reset password
   const resetPassword = async (token, password) => {
     try {
       setLoading(true);

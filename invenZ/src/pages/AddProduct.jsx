@@ -1,3 +1,4 @@
+// src/pages/AddProduct.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProduct } from '../context/ProductContext';
@@ -7,26 +8,36 @@ import './AddProduct.css';
 
 const AddProduct = () => {
   const navigate = useNavigate();
-  const { createProduct } = useProduct();
+  const { createProduct, loadProducts } = useProduct();  // ✅ loadProducts එක Add කරන්න
   const { success, error } = useNotification();
   const [loading, setLoading] = useState(false);
 
-  // Mock data - replace with actual data from context
+  // ✅ Categories - ProductForm එකට යවන්න
   const categories = [
-    { id: 'cat1', name: 'Electronics' },
-    { id: 'cat2', name: 'Food' },
-    { id: 'cat3', name: 'Clothing' }
+    { id: 'Food', name: 'Food' },
+    { id: 'Electronics', name: 'Electronics' },
+    { id: 'Clothing', name: 'Clothing' },
+    { id: 'Books', name: 'Books' },
+    { id: 'Home & Garden', name: 'Home & Garden' }
   ];
 
+  // ✅ Suppliers - ProductForm එකට යවන්න
   const suppliers = [
-    { id: 'sup1', name: 'Tech Distributors' },
-    { id: 'sup2', name: 'Food Supply Co.' }
+    { id: 'sup1', name: 'Tech Distributors Ltd' },
+    { id: 'sup2', name: 'Food Supply Co.' },
+    { id: 'sup3', name: 'Fashion Hub' }
   ];
 
   const handleSubmit = async (data) => {
     try {
       setLoading(true);
+      
+      // ✅ Product එක Create කරනවා
       await createProduct(data);
+      
+      // ✅ Products Reload කරන්න (නව Product එක පෙන්වන්න)
+      await loadProducts();
+      
       success('Product added successfully!');
       navigate('/products');
     } catch (err) {

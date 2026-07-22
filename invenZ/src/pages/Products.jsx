@@ -1,8 +1,10 @@
-// src/pages/Products.jsx - MODERN REDESIGN
+// src/pages/Products.jsx - WITH FORM SUBMIT HANDLER
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProduct } from '../context/ProductContext';
 import { useNotification } from '../context/NotificationContext';
+import ProductForm from '../components/products/ProductForm';
+import ProductDetails from '../components/products/ProductDetails';
 import './Products.css';
 
 const Products = () => {
@@ -14,6 +16,9 @@ const Products = () => {
     loadProducts, 
     loadCategories,
     deleteProduct,
+    createProduct,
+    updateProduct,
+    getProduct,
     totalCount
   } = useProduct();
   
@@ -21,12 +26,35 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('name');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [viewMode, setViewMode] = useState('grid');
+  const [showForm, setShowForm] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [viewingProduct, setViewingProduct] = useState(null);
+  const [formLoading, setFormLoading] = useState(false);
 
   useEffect(() => {
     loadProducts();
     loadCategories();
   }, []);
+
+  const handleAdd = () => {
+    setEditingProduct(null);
+    setShowForm(true);
+  };
+
+  const handleEdit = (product) => {
+    setEditingProduct(product);
+    setShowForm(true);
+  };
+
+  const handleView = async (product) => {
+    try {
+      const data = await getProduct(product.id);
+      setViewingProduct(data);
+    } catch (err) {
+      error('Failed to load product details');
+    }
+  };
 
   const handleDelete = async (product) => {
     if (!window.confirm(`Are you sure you want to delete "${product.name}"?`)) return;
@@ -36,6 +64,33 @@ const Products = () => {
     } catch (err) {
       error('Failed to delete product');
     }
+  };
+
+  // ✅ FORM SUBMIT HANDLER - Product Add/Update කරාම Reload වෙනවා
+  const handleFormSubmit = async (data) => {
+    try {
+      setFormLoading(true);
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, data);
+        success('Product updated successfully!');
+      } else {
+        await createProduct(data);
+        success('Product added successfully!');
+      }
+      setShowForm(false);
+      setEditingProduct(null);
+      // ✅ Products Reload කරන්න (නව Product එක පෙන්වන්න)
+      await loadProducts();
+    } catch (err) {
+      error(err.message || 'Failed to save product');
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleFormCancel = () => {
+    setShowForm(false);
+    setEditingProduct(null);
   };
 
   // Filter and Sort Products
@@ -63,6 +118,39 @@ const Products = () => {
     return { label: 'In Stock', className: 'in-stock', icon: '🟢' };
   };
 
+  // View Product Details
+  if (viewingProduct) {
+    return (
+      <ProductDetails
+        product={viewingProduct}
+        onClose={() => setViewingProduct(null)}
+        onEdit={() => {
+          setViewingProduct(null);
+          handleEdit(viewingProduct);
+        }}
+      />
+    );
+  }
+
+  // Add/Edit Product Form
+  if (showForm) {
+    return (
+      <div className="products-page-modern">
+        <div className="page-header-modern">
+          <h1>{editingProduct ? '✏️ Edit Product' : '📦 Add New Product'}</h1>
+          <p>{editingProduct ? 'Update product details' : 'Fill in the details to add a new product'}</p>
+        </div>
+        <ProductForm
+          initialData={editingProduct}
+          onSubmit={handleFormSubmit}
+          onCancel={handleFormCancel}
+          categories={categories}
+          loading={formLoading}
+        />
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="loader-container">
@@ -80,7 +168,7 @@ const Products = () => {
           <h1>📦 Products</h1>
           <p>Manage your product inventory</p>
         </div>
-        <button className="btn-add-modern" onClick={() => navigate('/products/add')}>
+        <button className="btn-add-modern" onClick={handleAdd}>
           <span>➕</span> Add Product
         </button>
       </div>
@@ -174,7 +262,7 @@ const Products = () => {
           <span className="empty-icon">📭</span>
           <h3>No products found</h3>
           <p>Try adjusting your filters or add a new product</p>
-          <button className="btn-add-modern" onClick={() => navigate('/products/add')}>
+          <button className="btn-add-modern" onClick={handleAdd}>
             + Add Product
           </button>
         </div>
@@ -201,8 +289,8 @@ const Products = () => {
                     </div>
                   </div>
                   <div className="list-item-actions">
-                    <button className="btn-view" onClick={() => navigate(`/products/${product.id}`)}>👁️</button>
-                    <button className="btn-edit" onClick={() => navigate(`/products/edit/${product.id}`)}>✏️</button>
+                    <button className="btn-view" onClick={() => handleView(product)}>👁️</button>
+                    <button className="btn-edit" onClick={() => handleEdit(product)}>✏️</button>
                     <button className="btn-delete" onClick={() => handleDelete(product)}>🗑️</button>
                   </div>
                 </div>
@@ -210,7 +298,7 @@ const Products = () => {
             }
 
             return (
-              <div key={product.id} className="product-card-modern" onClick={() => navigate(`/products/${product.id}`)}>
+              <div key={product.id} className="product-card-modern" onClick={() => handleView(product)}>
                 <div className="card-image">
                   <span className="product-emoji">📦</span>
                   <span className={`stock-badge ${stockStatus.className}`}>
@@ -242,8 +330,8 @@ const Products = () => {
                   </div>
                 </div>
                 <div className="card-actions" onClick={(e) => e.stopPropagation()}>
-                  <button className="btn-view" onClick={() => navigate(`/products/${product.id}`)}>👁️</button>
-                  <button className="btn-edit" onClick={() => navigate(`/products/edit/${product.id}`)}>✏️</button>
+                  <button className="btn-view" onClick={() => handleView(product)}>👁️</button>
+                  <button className="btn-edit" onClick={() => handleEdit(product)}>✏️</button>
                   <button className="btn-delete" onClick={() => handleDelete(product)}>🗑️</button>
                 </div>
               </div>

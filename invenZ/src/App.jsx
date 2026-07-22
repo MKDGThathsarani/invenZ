@@ -19,7 +19,9 @@ import Products from './pages/Products';
 import AddProduct from './pages/AddProduct';
 import EditProduct from './pages/EditProduct';
 import ProductDetails from './pages/ProductDetails';
-import Categories from './pages/Categories';  // ✅ Categories Import කරන්න
+import Categories from './pages/Categories';    // ✅ Categories Import
+import Charts from './pages/Charts';
+import Profile from './pages/Profile';
 import Suppliers from './pages/Suppliers';
 import AddSupplier from './pages/AddSupplier';
 import SupplierDetails from './pages/SupplierDetails';
@@ -46,45 +48,75 @@ function App() {
                 <OrderProvider>
                   <BrowserRouter>
                     <Routes>
-                      {/* Dashboard - Default Route */}
+                      {/* ============================================
+                          DASHBOARD
+                          ============================================ */}
                       <Route path="/" element={<Layout><Dashboard /></Layout>} />
                       <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
                       
-                      {/* Categories */}
-                      <Route path="/categories" element={<Layout><Categories /></Layout>} />  {/* ✅ Categories Route එක Add කරන්න */}
+                      {/* ============================================
+                          CATEGORIES
+                          ============================================ */}
+                      <Route path="/categories" element={<Layout><Categories /></Layout>} />
                       
-                      {/* Products */}
+                      {/* ============================================
+                          CHARTS
+                          ============================================ */}
+                      <Route path="/charts" element={<Layout><Charts /></Layout>} />
+                      
+                      {/* ============================================
+                          PROFILE
+                          ============================================ */}
+                      <Route path="/settings/profile" element={<Layout><Profile /></Layout>} />
+                      
+                      {/* ============================================
+                          PRODUCTS
+                          ============================================ */}
                       <Route path="/products" element={<Layout><Products /></Layout>} />
                       <Route path="/products/add" element={<Layout><AddProduct /></Layout>} />
                       <Route path="/products/edit/:id" element={<Layout><EditProduct /></Layout>} />
                       <Route path="/products/:id" element={<Layout><ProductDetails /></Layout>} />
                       
-                      {/* Suppliers */}
+                      {/* ============================================
+                          SUPPLIERS
+                          ============================================ */}
                       <Route path="/suppliers" element={<Layout><Suppliers /></Layout>} />
                       <Route path="/suppliers/add" element={<Layout><AddSupplier /></Layout>} />
                       <Route path="/suppliers/:id" element={<Layout><SupplierDetails /></Layout>} />
                       
-                      {/* Stock */}
+                      {/* ============================================
+                          STOCK
+                          ============================================ */}
                       <Route path="/stock" element={<Layout><Stock /></Layout>} />
                       <Route path="/stock/movements" element={<Layout><StockMovements /></Layout>} />
                       
-                      {/* Orders */}
+                      {/* ============================================
+                          ORDERS
+                          ============================================ */}
                       <Route path="/orders" element={<Layout><Orders /></Layout>} />
                       <Route path="/orders/purchase" element={<Layout><PurchaseOrders /></Layout>} />
                       <Route path="/orders/sales" element={<Layout><SalesOrders /></Layout>} />
                       
-                      {/* Reports */}
+                      {/* ============================================
+                          REPORTS
+                          ============================================ */}
                       <Route path="/reports" element={<Layout><Reports /></Layout>} />
                       
-                      {/* Settings */}
+                      {/* ============================================
+                          SETTINGS
+                          ============================================ */}
                       <Route path="/settings" element={<Layout><Settings /></Layout>} />
                       
-                      {/* Auth */}
+                      {/* ============================================
+                          AUTH (Public Routes)
+                          ============================================ */}
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
                       <Route path="/forgot-password" element={<ForgotPassword />} />
                       
-                      {/* 404 */}
+                      {/* ============================================
+                          404 NOT FOUND
+                          ============================================ */}
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </BrowserRouter>

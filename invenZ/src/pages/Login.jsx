@@ -1,4 +1,4 @@
-// src/pages/Login.jsx - WITH DEMO USERS LIST
+// src/pages/Login.jsx - WITH DEMO USERS
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // ✅ Page Reload වෙන්න එපා!
     try {
       setLoading(true);
       const response = await login(email, password);
@@ -96,7 +96,10 @@ const Login = () => {
                   className="demo-user-item"
                   onClick={() => fillCredentials(user.email, user.password)}
                 >
-                  <img src={user.avatar} alt={user.name} />
+                  <img 
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=1B5E20&color=fff&bold=true&size=40`} 
+                    alt={user.name} 
+                  />
                   <div className="user-info">
                     <span className="user-name">{user.name}</span>
                     <span className="user-email">{user.email}</span>

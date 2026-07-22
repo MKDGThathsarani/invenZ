@@ -1,4 +1,4 @@
-// src/components/layout/Header.jsx - COMPLETE WITH NOTIFICATIONS
+// src/components/layout/Header.jsx - COMPLETE WITH NOTIFICATIONS & USER DROPDOWN
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -188,6 +188,8 @@ const Header = () => {
                 </div>
                 <span className="dropdown-arrow">▼</span>
               </div>
+
+              {/* ✅ User Dropdown - Profile, Settings, Logout */}
               {showUserMenu && (
                 <div className="user-dropdown">
                   <button onClick={() => navigate('/settings/profile')}>
