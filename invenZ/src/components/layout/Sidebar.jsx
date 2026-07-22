@@ -10,7 +10,7 @@ const Sidebar = () => {
     { icon: '🏢', label: 'Suppliers', path: '/suppliers' },
     { icon: '📈', label: 'Stock', path: '/stock' },
     { icon: '🛒', label: 'Orders', path: '/orders' },
-    { icon: '📊', label: 'Charts', path: '/charts' },  // ✅ Charts Menu එක Add කරන්න
+    { icon: '📉', label: 'Charts', path: '/charts' },  
     { icon: '📋', label: 'Reports', path: '/reports' },
     { icon: '⚙️', label: 'Settings', path: '/settings' },
   ];

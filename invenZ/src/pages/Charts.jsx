@@ -228,7 +228,7 @@ const Charts = () => {
       <button className="back-btn" onClick={() => navigate('/')}>← Back to Dashboard</button>
       
       <div className="charts-header">
-        <h1>📊 Charts & Analytics</h1>
+        <h1>📉 Charts & Analytics</h1>
         <p>Visualize your inventory data with interactive charts</p>
       </div>
 
