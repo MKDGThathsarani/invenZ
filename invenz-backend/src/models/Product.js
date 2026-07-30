@@ -25,38 +25,27 @@ class Product {
 
   static async findById(id) {
     const [rows] = await pool.execute(
-      `SELECT p.*, u.name as created_by_name 
-       FROM products p 
-       LEFT JOIN users u ON p.created_by = u.id 
-       WHERE p.id = ?`,
+      `SELECT * FROM products WHERE id = ?`,
       [id]
     );
     return rows[0] || null;
   }
 
   static async findAll(filters = {}) {
-    let sql = `SELECT p.*, u.name as created_by_name 
-               FROM products p 
-               LEFT JOIN users u ON p.created_by = u.id 
-               WHERE 1=1`;
+    let sql = `SELECT * FROM products WHERE 1=1`;
     const params = [];
 
     if (filters.category) {
-      sql += ' AND p.category = ?';
+      sql += ' AND category = ?';
       params.push(filters.category);
     }
 
     if (filters.search) {
-      sql += ' AND (p.name LIKE ? OR p.sku LIKE ?)';
+      sql += ' AND (name LIKE ? OR sku LIKE ?)';
       params.push(`%${filters.search}%`, `%${filters.search}%`);
     }
 
-    if (filters.status) {
-      sql += ' AND p.status = ?';
-      params.push(filters.status);
-    }
-
-    sql += ' ORDER BY p.created_at DESC';
+    sql += ' ORDER BY created_at DESC';
 
     const [rows] = await pool.execute(sql, params);
     return rows;
@@ -108,13 +97,6 @@ class Product {
       'SELECT * FROM products WHERE current_stock <= 0'
     );
     return rows;
-  }
-
-  static async getCategories() {
-    const [rows] = await pool.execute(
-      'SELECT DISTINCT category FROM products WHERE category IS NOT NULL AND category != ""'
-    );
-    return rows.map(row => row.category);
   }
 }
 

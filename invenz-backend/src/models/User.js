@@ -26,22 +26,6 @@ class User {
     );
     return rows[0] || null;
   }
-
-  static async update(id, userData) {
-    const { name, email, role } = userData;
-    await pool.execute(
-      'UPDATE users SET name = ?, email = ?, role = ? WHERE id = ?',
-      [name, email, role, id]
-    );
-    return this.findById(id);
-  }
-
-  static async updatePassword(id, hashedPassword) {
-    await pool.execute(
-      'UPDATE users SET password = ? WHERE id = ?',
-      [hashedPassword, id]
-    );
-  }
 }
 
 module.exports = User;

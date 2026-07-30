@@ -27,4 +27,7 @@ const testConnection = async () => {
   }
 };
 
+// Call test connection on startup
+testConnection();
+
 module.exports = { pool, testConnection };
