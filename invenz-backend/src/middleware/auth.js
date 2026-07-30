@@ -4,12 +4,15 @@ const User = require('../models/User');
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    // ✅ Get token from header
+    const authHeader = req.header('Authorization');
+    const token = authHeader?.replace('Bearer ', '');
     
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });
     }
 
+    // ✅ Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
 
@@ -21,6 +24,8 @@ const auth = async (req, res, next) => {
     req.userId = user.id;
     next();
   } catch (error) {
+    console.error('Auth error:', error.message);
+    
     if (error.name === 'JsonWebTokenError') {
       return res.status(401).json({ message: 'Invalid token' });
     }
@@ -31,11 +36,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-const adminOnly = (req, res, next) => {
-  if (req.user.role !== 'admin' && req.user.role !== 'Administrator') {
-    return res.status(403).json({ message: 'Admin access required' });
-  }
-  next();
-};
-
-module.exports = { auth, adminOnly };
+module.exports = { auth };

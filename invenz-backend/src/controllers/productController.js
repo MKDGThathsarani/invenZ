@@ -31,11 +31,7 @@ const getProduct = async (req, res) => {
 // Create product
 const createProduct = async (req, res) => {
   try {
-    const productData = {
-      ...req.body,
-      createdBy: req.userId
-    };
-
+    const productData = { ...req.body, createdBy: req.userId };
     const product = await Product.create(productData);
     res.status(201).json({
       success: true,
@@ -56,7 +52,6 @@ const updateProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-
     const updatedProduct = await Product.update(id, req.body);
     res.json({
       success: true,
@@ -77,22 +72,12 @@ const deleteProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-
     await Product.delete(id);
-    res.json({
-      success: true,
-      message: 'Product deleted successfully'
-    });
+    res.json({ success: true, message: 'Product deleted successfully' });
   } catch (error) {
     console.error('Delete product error:', error);
     res.status(500).json({ message: 'Failed to delete product' });
   }
 };
 
-module.exports = {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct
-};
+module.exports = { getProducts, getProduct, createProduct, updateProduct, deleteProduct };
