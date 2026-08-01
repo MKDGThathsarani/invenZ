@@ -12,6 +12,7 @@ import {
   ThemeProvider 
 } from './context';
 import './App.css';
+import NotificationContainer from './components/ui/NotificationContainer';
 
 // Import all pages
 import Dashboard from './pages/Dashboard';
@@ -47,6 +48,7 @@ function App() {
               <StockProvider>
                 <OrderProvider>
                   <BrowserRouter>
+                    <NotificationContainer />
                     <Routes>
                       {/* Dashboard */}
                       <Route path="/" element={<Layout><Dashboard /></Layout>} />
