@@ -119,11 +119,14 @@ const Login = () => {
     } catch (err) {
       const errorMessage = getErrorMessage(err.message);
       showError(errorMessage);
+      setTouched({ email: true, password: true });
       
       if (err.message.includes('email') || err.message.includes('user')) {
-        setFieldErrors({ ...fieldErrors, email: errorMessage });
+        setFieldErrors((prev) => ({ ...prev, email: errorMessage }));
       } else if (err.message.includes('password')) {
-        setFieldErrors({ ...fieldErrors, password: errorMessage });
+        setFieldErrors((prev) => ({ ...prev, password: errorMessage }));
+      } else {
+        setFieldErrors((prev) => ({ ...prev, email: errorMessage }));
       }
     } finally {
       setLoading(false);
