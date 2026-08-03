@@ -21,11 +21,11 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await supplierService.getAll(params);
-      setSuppliers(response.data || []);
-      setTotalCount(response.total || response.data?.length || 0);
+      const suppliers = await supplierService.getSuppliers(params);
+      setSuppliers(suppliers || []);
+      setTotalCount(suppliers?.length || 0);
       setLoading(false); // ✅ FIXED: Success වුනාම loading false වෙන්න ඕන!
-      return response;
+      return suppliers;
     } catch (err) {
       setError(err.message || 'Failed to load suppliers');
       showError('Failed to load suppliers');
@@ -39,9 +39,9 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await supplierService.getById(id);
+      const supplier = await supplierService.getSupplierById(id);
       setLoading(false);
-      return response.data;
+      return supplier;
     } catch (err) {
       setError(err.message || 'Failed to get supplier');
       setLoading(false);
@@ -54,12 +54,12 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await supplierService.create(data);
-      setSuppliers(prev => [response.data, ...prev]);
+      const supplier = await supplierService.addSupplier(data);
+      setSuppliers(prev => [supplier, ...prev]);
       setTotalCount(prev => prev + 1);
       success('Supplier added successfully!');
       setLoading(false);
-      return response.data;
+      return supplier;
     } catch (err) {
       setError(err.message || 'Failed to create supplier');
       showError('Failed to create supplier');
@@ -73,13 +73,13 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await supplierService.update(id, data);
+      const supplier = await supplierService.updateSupplier(id, data);
       setSuppliers(prev => 
-        prev.map(s => s.id === id ? { ...s, ...response.data } : s)
+        prev.map(s => s.id === id ? { ...s, ...supplier } : s)
       );
       success('Supplier updated successfully!');
       setLoading(false);
-      return response.data;
+      return supplier;
     } catch (err) {
       setError(err.message || 'Failed to update supplier');
       showError('Failed to update supplier');
@@ -93,7 +93,7 @@ export const SupplierProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      await supplierService.delete(id);
+      await supplierService.deleteSupplier(id);
       setSuppliers(prev => prev.filter(s => s.id !== id));
       setTotalCount(prev => prev - 1);
       success('Supplier deleted successfully!');
@@ -110,9 +110,9 @@ export const SupplierProvider = ({ children }) => {
   // Load top rated suppliers
   const loadTopRated = useCallback(async () => {
     try {
-      const response = await supplierService.getTopRated();
-      setTopRated(response.data || []);
-      return response.data;
+      const topRatedList = await supplierService.getTopRatedSuppliers();
+      setTopRated(topRatedList || []);
+      return topRatedList;
     } catch (err) {
       console.error('Failed to load top rated:', err);
       return [];
@@ -123,9 +123,9 @@ export const SupplierProvider = ({ children }) => {
   const searchSuppliers = useCallback(async (query) => {
     try {
       setLoading(true);
-      const response = await supplierService.search(query);
+      const results = await supplierService.getSuppliers({ search: query });
       setLoading(false);
-      return response.data || [];
+      return results || [];
     } catch (err) {
       console.error('Search failed:', err);
       setLoading(false);
