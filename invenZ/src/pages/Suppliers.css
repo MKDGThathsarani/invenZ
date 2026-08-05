@@ -94,6 +94,7 @@
 .search-icon {
   font-size: 18px;
   color: #999;
+  display: none !important;
 }
 
 .search-bar input {
