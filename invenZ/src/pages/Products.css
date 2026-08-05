@@ -120,6 +120,7 @@
 
 .search-box-modern .search-icon {
   color: #999;
+  display: none !important;
 }
 
 .search-box-modern input {
