@@ -8,8 +8,9 @@ const {
   updateStock
 } = require('../controllers/stockController');
 
-router.get('/low-stock', auth, getLowStock);
-router.get('/out-of-stock', auth, getOutOfStock);
+// Make low-stock and out-of-stock endpoints public (no auth required)
+router.get('/low-stock', getLowStock);
+router.get('/out-of-stock', getOutOfStock);
 router.put('/:id', auth, updateStock);
 
 module.exports = router;
